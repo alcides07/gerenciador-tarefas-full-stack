@@ -6,6 +6,7 @@ import com.tarefas.api.dto.tarefa.TarefaResponseDTO;
 import com.tarefas.api.specification.Tarefa.TarefaFieldsFilter;
 import com.tarefas.api.model.Tarefa;
 import com.tarefas.api.service.TarefaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.List;
 @RestController
 @Validated
 @RequestMapping("/api/tarefas/")
+@SecurityRequirement(name = "bearer-key")
 public class TarefaController {
 
     @Autowired
@@ -58,6 +60,7 @@ public class TarefaController {
     }
 
     @PatchMapping("/{id}/")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<TarefaResponseDTO> partialUpdateTarefa(@PathVariable Integer id, @Valid @RequestBody TarefaPartialUpdateDTO body){
         Tarefa tarefaUpdated = tarefaService.partialUpdateTarefa(id, body);
         TarefaResponseDTO tarefaUpdatedResponseDTO = TarefaResponseDTO.createFromEntity(tarefaUpdated);

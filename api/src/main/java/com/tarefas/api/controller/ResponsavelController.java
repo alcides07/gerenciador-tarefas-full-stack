@@ -3,6 +3,7 @@ import com.tarefas.api.dto.responsavel.ResponsavelCreateDTO;
 import com.tarefas.api.dto.responsavel.ResponsavelResponseDTO;
 import com.tarefas.api.model.Responsavel;
 import com.tarefas.api.service.ResponsavelService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @Validated
 @RequestMapping("api/responsaveis/")
+@SecurityRequirement(name = "bearer-key")
 public class ResponsavelController {
 
     @Autowired

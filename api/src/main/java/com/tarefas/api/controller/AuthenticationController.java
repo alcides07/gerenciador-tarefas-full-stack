@@ -27,7 +27,7 @@ public class AuthenticationController {
         String access = authorizationService.login(body);
         LoginResponseDTO loginResponseDTO = new LoginResponseDTO(access);
         return ResponseEntity.ok().body(loginResponseDTO);
-    };
+    }
 
     @PostMapping("/register/")
     @ResponseStatus(HttpStatus.CREATED)
