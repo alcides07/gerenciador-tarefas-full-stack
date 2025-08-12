@@ -2,6 +2,7 @@ package com.tarefas.api.service;
 
 import com.tarefas.api.dto.tarefa.TarefaCreateDTO;
 import com.tarefas.api.dto.tarefa.TarefaPartialUpdateDTO;
+import com.tarefas.api.specification.Tarefa.TarefaFieldsFilter;
 import com.tarefas.api.model.Responsavel;
 import com.tarefas.api.model.Tarefa;
 import com.tarefas.api.repository.ResponsavelRepository;
@@ -23,8 +24,8 @@ public class TarefaService {
     @Autowired
     ResponsavelRepository responsavelRepository;
 
-    public List<Tarefa> getTarefas(){
-        return tarefaRepository.findAll();
+    public List<Tarefa> getTarefas(TarefaFieldsFilter filters){
+        return tarefaRepository.findAll(filters.toSpecification());
     }
 
     public Tarefa getTarefaById(Integer id){
@@ -70,6 +71,10 @@ public class TarefaService {
 
         if (data.prioridade() != null){
             tarefa.setPrioridade(data.prioridade());
+        }
+
+        if (data.situacao() != null){
+            tarefa.setSituacao(data.situacao());
         }
 
         if (data.data() != null){
