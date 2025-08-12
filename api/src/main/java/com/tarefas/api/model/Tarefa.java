@@ -1,6 +1,4 @@
 package com.tarefas.api.model;
-
-import com.tarefas.api.dto.responsavel.ResponsavelCreateDTO;
 import com.tarefas.api.dto.tarefa.TarefaCreateDTO;
 import com.tarefas.api.enums.TarefaPrioridadeEnum;
 import com.tarefas.api.enums.TarefaSituacaoEnum;
