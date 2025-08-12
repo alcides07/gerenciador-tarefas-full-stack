@@ -30,9 +30,11 @@ public class Tarefa {
     @Column(name="descricao", nullable = false)
     private String descricao;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="prioridade", nullable = false)
     private TarefaPrioridadeEnum prioridade;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="situacao", nullable = false)
     private TarefaSituacaoEnum situacao;
 
