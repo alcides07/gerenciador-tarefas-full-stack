@@ -3,9 +3,10 @@ package com.tarefas.api.controller;
 import com.tarefas.api.dto.tarefa.TarefaCreateDTO;
 import com.tarefas.api.dto.tarefa.TarefaPartialUpdateDTO;
 import com.tarefas.api.dto.tarefa.TarefaResponseDTO;
-import com.tarefas.api.enums.TarefaPrioridadeEnum;
+import com.tarefas.api.specification.Tarefa.TarefaFieldsFilter;
 import com.tarefas.api.model.Tarefa;
 import com.tarefas.api.service.TarefaService;
+import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,9 +27,9 @@ public class TarefaController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<TarefaResponseDTO>> getTarefas(
-            @RequestParam(required = false) TarefaPrioridadeEnum prioridade
+            @ModelAttribute @Nullable TarefaFieldsFilter filters
     ){
-        List<Tarefa> tarefas = tarefaService.getTarefas();
+        List<Tarefa> tarefas = tarefaService.getTarefas(filters);
         List<TarefaResponseDTO> tarefasResponseDTO = tarefas.stream().map(TarefaResponseDTO::createFromEntity).toList();
         return ResponseEntity.ok(tarefasResponseDTO);
     }
