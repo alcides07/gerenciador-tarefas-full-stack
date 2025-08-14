@@ -11,6 +11,8 @@ import {
   NzFormLabelComponent,
 } from 'ng-zorro-antd/form';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-filters',
@@ -19,6 +21,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     NzSelectModule,
     NzButtonModule,
     NzInputModule,
+    NzGridModule,
+    NzIconModule,
     NzFormItemComponent,
     NzFormLabelComponent,
     NzFormControlComponent,

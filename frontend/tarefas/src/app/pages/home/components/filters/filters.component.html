@@ -1,80 +1,101 @@
 <form nz-form (ngSubmit)="aplicar()" class="filter-form">
-  <nz-form-item>
-    <nz-form-label>Número</nz-form-label>
-    <nz-form-control>
-      <input
-        nz-input
-        placeholder="Buscar por número"
-        [(ngModel)]="filtros.tarefaId"
-        name="tarefaId"
-      />
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label>Título ou Descrição</nz-form-label>
-    <nz-form-control>
-      <input
-        nz-input
-        placeholder="Buscar por título ou descrição"
-        [(ngModel)]="filtros.search"
-        name="search"
-      />
-    </nz-form-control>
-  </nz-form-item>
+  <div class="filter-container">
+    <div nz-row>
+      <div nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="24">
+        <nz-form-item class="label-above">
+          <nz-form-label><strong>Título ou Descrição</strong></nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Buscar por título ou descrição"
+              [(ngModel)]="filtros.search"
+              name="search"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
 
-  <nz-form-item>
-    <nz-form-label>Responsável</nz-form-label>
-    <nz-form-control>
-      <nz-select
-        nzPlaceHolder="Selecione o responsável"
-        [(ngModel)]="filtros.responsavelId"
-        name="responsavel"
-        nzAllowClear
-      >
-        <nz-option nzLabel="Todos" [nzValue]="undefined"></nz-option>
-        @for (responsavel of responsaveis; track responsavel.id) {
-        <nz-option [nzLabel]="responsavel.nome" [nzValue]="responsavel.id"></nz-option>
-        }
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
+    <div nz-row [nzGutter]="16">
+      <div nz-col [nzSpan]="8" [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="12">
+        <nz-form-item class="label-above">
+          <nz-form-label><strong>Número</strong></nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="ID da tarefa"
+              [(ngModel)]="filtros.tarefaId"
+              name="tarefaId"
+              type="number"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="16" [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="12">
+        <nz-form-item class="label-above">
+          <nz-form-label><strong>Responsável</strong></nz-form-label>
+          <nz-form-control>
+            <nz-select
+              nzPlaceHolder="Selecione responsável"
+              [(ngModel)]="filtros.responsavelId"
+              name="responsavel"
+              nzAllowClear
+            >
+              <nz-option nzLabel="Todos" [nzValue]="undefined"></nz-option>
+              @for (responsavel of responsaveis; track responsavel.id) {
+              <nz-option [nzLabel]="responsavel.nome" [nzValue]="responsavel.id"></nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
 
-  <nz-form-item>
-    <nz-form-label>Prioridade</nz-form-label>
-    <nz-form-control>
-      <nz-select
-        nzPlaceHolder="Selecione a prioridade"
-        [(ngModel)]="filtros.prioridade"
-        name="prioridade"
-        nzAllowClear
-      >
-        <nz-option nzLabel="Todas" [nzValue]="undefined"></nz-option>
-        @for (prioridade of prioridades; track prioridade) {
-        <nz-option [nzLabel]="prioridade" [nzValue]="prioridade"></nz-option>
-        }
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
+    <div nz-row [nzGutter]="16">
+      <div nz-col [nzSpan]="12" [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="12">
+        <nz-form-item class="label-above">
+          <nz-form-label><strong>Prioridade</strong></nz-form-label>
+          <nz-form-control>
+            <nz-select
+              nzPlaceHolder="Selecione prioridade"
+              [(ngModel)]="filtros.prioridade"
+              name="prioridade"
+              nzAllowClear
+            >
+              <nz-option nzLabel="Todas" [nzValue]="undefined"></nz-option>
+              @for (prioridade of prioridades; track prioridade) {
+              <nz-option [nzLabel]="prioridade" [nzValue]="prioridade"></nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12" [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="12">
+        <nz-form-item class="label-above">
+          <nz-form-label><strong>Situação</strong></nz-form-label>
+          <nz-form-control>
+            <nz-select
+              nzPlaceHolder="Selecione situação"
+              [(ngModel)]="filtros.situacao"
+              name="situacao"
+              nzAllowClear
+            >
+              @for (situacao of situacoes; track situacao) {
+              <nz-option [nzLabel]="situacao" [nzValue]="situacao"></nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
 
-  <nz-form-item>
-    <nz-form-label>Situação</nz-form-label>
-    <nz-form-control>
-      <nz-select
-        nzPlaceHolder="Selecione a situação"
-        [(ngModel)]="filtros.situacao"
-        name="situacao"
-        nzAllowClear
-      >
-        @for (situacao of situacoes; track situacao) {
-        <nz-option [nzLabel]="situacao" [nzValue]="situacao"></nz-option>
-        }
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
-
-  <nz-form-item>
-    <nz-form-control>
-      <button nz-button class="login-form-button login-form-margin" nzType="primary">Buscar</button>
-    </nz-form-control>
-  </nz-form-item>
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <button nz-button nzType="primary" type="submit" class="search-button">
+          <span nz-icon nzType="search" nzTheme="outline"></span>
+          Buscar
+        </button>
+      </div>
+    </div>
+  </div>
 </form>
