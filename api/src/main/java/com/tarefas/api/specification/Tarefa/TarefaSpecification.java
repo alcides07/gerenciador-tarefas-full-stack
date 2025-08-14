@@ -16,6 +16,15 @@ public class TarefaSpecification {
         };
     }
 
+    public static Specification<Tarefa> tarefaIdExact(Integer tarefaId){
+        return (root, query, builder) -> {
+            if (ObjectUtils.isEmpty(tarefaId)){
+                return null;
+            }
+            return builder.equal(root.get("id"), tarefaId);
+        };
+    }
+
     public static Specification<Tarefa> responsavelNomeContains(String nome){
         return (root, query, builder) -> {
             if (ObjectUtils.isEmpty(nome)){

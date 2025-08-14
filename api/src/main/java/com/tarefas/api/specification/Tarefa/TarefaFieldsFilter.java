@@ -15,6 +15,9 @@ public class TarefaFieldsFilter {
     private Integer responsavelId;
 
     @Nullable
+    private Integer tarefaId;
+
+    @Nullable
     private String responsavelNome;
 
     @Nullable
@@ -33,6 +36,7 @@ public class TarefaFieldsFilter {
         return
             responsavelNomeContains(responsavelNome)
             .and(responsavelIdExact(responsavelId))
+            .and(tarefaIdExact(tarefaId))
             .and(prioridadeExact(prioridade))
             .and(situacaoExact(situacao))
             .and(tituloDescricaoContains(search)
