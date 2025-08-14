@@ -1,0 +1,80 @@
+<form nz-form (ngSubmit)="aplicar()" class="filter-form">
+  <nz-form-item>
+    <nz-form-label>Número</nz-form-label>
+    <nz-form-control>
+      <input
+        nz-input
+        placeholder="Buscar por número"
+        [(ngModel)]="filtros.tarefaId"
+        name="tarefaId"
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Título ou Descrição</nz-form-label>
+    <nz-form-control>
+      <input
+        nz-input
+        placeholder="Buscar por título ou descrição"
+        [(ngModel)]="filtros.search"
+        name="search"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label>Responsável</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        nzPlaceHolder="Selecione o responsável"
+        [(ngModel)]="filtros.responsavelId"
+        name="responsavel"
+        nzAllowClear
+      >
+        <nz-option nzLabel="Todos" [nzValue]="undefined"></nz-option>
+        @for (responsavel of responsaveis; track responsavel.id) {
+        <nz-option [nzLabel]="responsavel.nome" [nzValue]="responsavel.id"></nz-option>
+        }
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label>Prioridade</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        nzPlaceHolder="Selecione a prioridade"
+        [(ngModel)]="filtros.prioridade"
+        name="prioridade"
+        nzAllowClear
+      >
+        <nz-option nzLabel="Todas" [nzValue]="undefined"></nz-option>
+        @for (prioridade of prioridades; track prioridade) {
+        <nz-option [nzLabel]="prioridade" [nzValue]="prioridade"></nz-option>
+        }
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label>Situação</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        nzPlaceHolder="Selecione a situação"
+        [(ngModel)]="filtros.situacao"
+        name="situacao"
+        nzAllowClear
+      >
+        @for (situacao of situacoes; track situacao) {
+        <nz-option [nzLabel]="situacao" [nzValue]="situacao"></nz-option>
+        }
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button class="login-form-button login-form-margin" nzType="primary">Buscar</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

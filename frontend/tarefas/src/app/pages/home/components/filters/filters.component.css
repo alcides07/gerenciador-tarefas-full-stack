@@ -1,0 +1,14 @@
+.filter-form {
+  padding: 16px;
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+}
+
+nz-form-item {
+  margin-bottom: 16px;
+}
+
+[nz-button] {
+  margin-top: 8px;
+}
