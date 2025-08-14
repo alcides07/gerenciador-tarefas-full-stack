@@ -1,30 +1,32 @@
-<nz-table #basicTable [nzData]="tarefas">
-  <thead>
-    <tr>
-      <th>Número</th>
-      <th>Título</th>
-      <th>Responsável</th>
-      <th>Prioridade</th>
-      <th>Data</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (tarefa of basicTable.data; track tarefa) {
-    <tr>
-      <td>{{ tarefa.id }}</td>
-      <td>{{ tarefa.titulo }}</td>
-      <td>{{ tarefa.responsavel.nome }}</td>
-      <td>{{ tarefa.prioridade }}</td>
-      <td>{{ formatarData(tarefa.data) }}</td>
-      <td>
-        <a>Editar</a>
-        <nz-divider nzType="vertical"></nz-divider>
-        <a>Excluir</a>
-        <nz-divider nzType="vertical"></nz-divider>
-        <a>Concluir</a>
-      </td>
-    </tr>
-    }
-  </tbody>
-</nz-table>
+<div class="table-container">
+  <nz-table #basicTable [nzData]="tarefas">
+    <thead>
+      <tr>
+        <th>Número</th>
+        <th>Título</th>
+        <th>Responsável</th>
+        <th>Prioridade</th>
+        <th>Data</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (tarefa of basicTable.data; track tarefa) {
+      <tr>
+        <td>{{ tarefa.id }}</td>
+        <td>{{ tarefa.titulo }}</td>
+        <td>{{ tarefa.responsavel.nome }}</td>
+        <td>{{ tarefa.prioridade }}</td>
+        <td>{{ formatarData(tarefa.data) }}</td>
+        <td>
+          <a>Editar</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a>Excluir</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a>Concluir</a>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>
