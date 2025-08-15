@@ -47,7 +47,6 @@ public class Tarefa {
         Tarefa tarefa = new Tarefa();
         tarefa.setTitulo(data.titulo());
         tarefa.setDescricao(data.descricao());
-        tarefa.setSituacao(data.situacao());
         tarefa.setPrioridade(data.prioridade());
         tarefa.setData(data.data());
         return tarefa;
