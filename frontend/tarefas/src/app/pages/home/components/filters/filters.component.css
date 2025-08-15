@@ -10,7 +10,16 @@
 nz-form-label {
   display: block;
   text-align: left;
-  margin-bottom: 4px;
   font-weight: 500;
   width: 100%;
+}
+
+.search-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.search-button {
+  margin-left: auto;
 }
