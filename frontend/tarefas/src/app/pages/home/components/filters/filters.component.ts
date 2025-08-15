@@ -34,7 +34,9 @@ export class FiltersComponent {
   @Input() responsaveis: Responsavel[] = [];
   @Output() aplicarFiltros = new EventEmitter<TarefaFilter>();
 
-  filtros: Partial<TarefaFilter> = {};
+  filtros: Partial<TarefaFilter> = {
+    situacao: 'EM_ANDAMENTO',
+  };
   prioridades: Prioridade[] = ['BAIXA', 'MEDIA', 'ALTA'];
   situacoes: Situacao[] = ['EM_ANDAMENTO', 'CONCLUIDA'];
 
