@@ -29,8 +29,8 @@ export class TarefaService {
     return this.http.post<Tarefa>(this.tarefaApiUrl, data);
   }
 
-  updateTarefa(data: TarefaOptionalRequest): Observable<Tarefa> {
-    return this.http.patch<Tarefa>(this.tarefaApiUrl, data);
+  updateTarefa(id: number, data: TarefaOptionalRequest): Observable<Tarefa> {
+    return this.http.patch<Tarefa>(`${this.tarefaApiUrl}${id}/`, data);
   }
 
   completeTarefa(id: number): Observable<Tarefa> {
