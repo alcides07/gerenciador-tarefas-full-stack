@@ -23,5 +23,5 @@ public record TarefaPartialUpdateDTO (
     LocalDate data,
 
     @Nullable
-    Integer responsavel_id
+    Integer responsavelId
 ){}

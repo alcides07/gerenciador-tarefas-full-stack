@@ -2,6 +2,7 @@ package com.tarefas.api.service;
 
 import com.tarefas.api.dto.tarefa.TarefaCreateDTO;
 import com.tarefas.api.dto.tarefa.TarefaPartialUpdateDTO;
+import com.tarefas.api.enums.TarefaSituacaoEnum;
 import com.tarefas.api.specification.Tarefa.TarefaFieldsFilter;
 import com.tarefas.api.model.Responsavel;
 import com.tarefas.api.model.Tarefa;
@@ -36,10 +37,11 @@ public class TarefaService {
     @Transactional
     public Tarefa createTarefa(TarefaCreateDTO data){
         Responsavel responsavel = responsavelRepository
-                .findById(data.responsavel_id())
+                .findById(data.responsavelId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Responsável não encontrado!"));
 
         Tarefa newTarefa = Tarefa.createFromDTO(data);
+        newTarefa.setSituacao(TarefaSituacaoEnum.EM_ANDAMENTO);
         newTarefa.setResponsavel(responsavel);
 
         return tarefaRepository.save(newTarefa);
@@ -56,8 +58,8 @@ public class TarefaService {
     public Tarefa partialUpdateTarefa(Integer id, TarefaPartialUpdateDTO data){
         Tarefa tarefa = tarefaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if (data.responsavel_id() != null && !data.responsavel_id().equals(tarefa.getResponsavel().getId())){
-            Responsavel newResponsavelIntoTarefa = responsavelRepository.findById(data.responsavel_id()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (data.responsavelId() != null && !data.responsavelId().equals(tarefa.getResponsavel().getId())){
+            Responsavel newResponsavelIntoTarefa = responsavelRepository.findById(data.responsavelId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
             tarefa.setResponsavel(newResponsavelIntoTarefa);
         }
 
