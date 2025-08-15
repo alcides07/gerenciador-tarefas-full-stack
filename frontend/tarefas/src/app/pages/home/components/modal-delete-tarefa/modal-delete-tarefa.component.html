@@ -1,0 +1,16 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="'Excluir tarefa'"
+  nzOkText="Sim"
+  nzCancelText="Não"
+  [nzOkLoading]="isLoading"
+  [nzOkDanger]="true"
+  (nzOnCancel)="closeModal()"
+  (nzOnOk)="handleConfirm()"
+>
+  <div *nzModalContent>
+    <p>
+      Você deseja excluir a tarefa <b>'{{ tarefa.titulo }}'</b>?
+    </p>
+  </div>
+</nz-modal>
