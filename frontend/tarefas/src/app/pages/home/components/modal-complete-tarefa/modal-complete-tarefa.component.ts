@@ -1,34 +1,53 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { Tarefa } from '../../../../interfaces/models/tarefa';
+import { TarefaService } from '../../../../services/tarefa/tarefa.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { finalize } from 'rxjs';
 
 @Component({
+  imports: [NzModalModule],
   selector: 'app-modal-complete-tarefa',
   templateUrl: './modal-complete-tarefa.component.html',
   styleUrl: './modal-complete-tarefa.component.css',
 })
 export class ModalCompleteTarefaComponent {
   @Input() tarefa!: Tarefa;
+  @Input() isVisible: boolean = false;
   @Input() isLoading: boolean = false;
-  @Output() onConfirm = new EventEmitter<number>();
-  @Output() onCancel = new EventEmitter<void>();
-  modal: NzModalService = inject(NzModalService);
 
-  ngOnInit() {
-    this.showConfirm();
+  @Output() isVisibleChange = new EventEmitter<boolean>();
+  @Output() onCancel = new EventEmitter<void>();
+  @Output() onComplete = new EventEmitter<void>();
+
+  private tarefaService = inject(TarefaService);
+  private message = inject(NzMessageService);
+
+  handleConfirm(): void {
+    this.isLoading = true;
+
+    this.tarefaService
+      .completeTarefa(this.tarefa.id)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.isVisible = false;
+          this.isVisibleChange.emit(false);
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.message.success('Tarefa concluída com sucesso!');
+          this.onComplete.emit();
+        },
+        error: () => {
+          this.message.error('Erro ao concluir tarefa!');
+        },
+      });
   }
 
-  showConfirm(): void {
-    this.modal.confirm({
-      nzTitle: `Concluir tarefa`,
-      nzContent: `Você deseja concluir a tarefa <b>'${this.tarefa.titulo}'</b>?`,
-      nzOkText: 'Sim',
-      nzOkType: 'primary',
-      nzOkLoading: this.isLoading,
-      nzOkDanger: true,
-      nzOnOk: () => this.onConfirm.emit(this.tarefa.id),
-      nzCancelText: 'Não',
-      nzOnCancel: () => this.onCancel.emit(),
-    });
+  closeModal(): void {
+    this.isVisible = false;
+    this.isVisibleChange.emit(false);
   }
 }
