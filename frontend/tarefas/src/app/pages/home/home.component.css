@@ -4,10 +4,15 @@
   position: relative;
 }
 
-.create-button {
+.button-group {
   position: absolute;
   top: 0;
   left: 0;
+  display: flex;
+  gap: 12px;
+}
+
+.create-button {
   padding: 0 16px;
   font-weight: 500;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);

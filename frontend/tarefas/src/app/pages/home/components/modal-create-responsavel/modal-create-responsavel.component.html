@@ -1,0 +1,24 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Cadastrar Responsável"
+  nzOkText="Cadastrar"
+  nzMaskClosable="false"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isLoadingSubmit"
+>
+  <div *nzModalContent>
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="handleOk()">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nome">Responsável</nz-form-label>
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          nzErrorTip="Por favor, preencha o nome do responsável"
+        >
+          <input placeholder="Insira o nome" nz-input formControlName="nome" id="nome" />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</nz-modal>

@@ -9,10 +9,18 @@ import { ResponsavelService } from '../../services/responsavel/responsavel.servi
 import { FiltersComponent } from './components/filters/filters.component';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { ModalCreateTarefaComponent } from './components/modal-create-tarefa/modal-create-and-update-tarefa.component';
+import { ModalCreateResponsavelComponent } from './components/modal-create-responsavel/modal-create-responsavel.component';
 
 @Component({
   selector: 'app-home',
-  imports: [TableComponent, FiltersComponent, NzButtonComponent, ModalCreateTarefaComponent],
+  imports: [
+    TableComponent,
+    FiltersComponent,
+    NzButtonComponent,
+    ModalCreateTarefaComponent,
+    ModalCreateResponsavelComponent,
+    ModalCreateResponsavelComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -20,6 +28,7 @@ export class HomeComponent implements OnInit {
   tarefas: Tarefa[] = [];
   responsaveis: Responsavel[] = [];
   modalCreateTarefaIsVisible = false;
+  modalCreateResponsavelVisible = false;
   currentFilters: TarefaFilter = {
     situacao: 'EM_ANDAMENTO',
   };
@@ -64,7 +73,15 @@ export class HomeComponent implements OnInit {
     this.modalCreateTarefaIsVisible = true;
   }
 
+  showModalCreateResponsavel(): void {
+    this.modalCreateResponsavelVisible = true;
+  }
+
   loadTarefas(): void {
     this.getTarefas(this.currentFilters);
+  }
+
+  loadResponsaveis(): void {
+    this.getResponsaveis();
   }
 }
