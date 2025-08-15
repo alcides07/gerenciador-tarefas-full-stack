@@ -9,7 +9,7 @@ export interface Tarefa {
   descricao: string;
   prioridade: Prioridade;
   situacao: Situacao;
-  data: 'string';
+  data: string;
   responsavel: Responsavel;
 }
 
@@ -17,16 +17,14 @@ export interface TarefaRequest {
   titulo: string;
   descricao: string;
   prioridade: Prioridade;
-  situacao: Situacao;
-  data: 'string';
-  responsavel_id: number;
+  data: string;
+  responsavelId: number;
 }
 
 export interface TarefaOptionalRequest {
   titulo?: string;
   descricao?: string;
   prioridade?: Prioridade;
-  situacao?: Situacao;
-  data?: 'string';
-  responsavel_id?: number;
+  data?: string;
+  responsavelId?: number;
 }
