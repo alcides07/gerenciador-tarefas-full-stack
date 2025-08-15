@@ -19,7 +19,7 @@
         <td>{{ tarefa.prioridade }}</td>
         <td>{{ formatarData(tarefa.data) }}</td>
         <td>
-          <a>Editar</a>
+          <a (click)="openUpdateModal(tarefa)">Editar</a>
           <nz-divider nzType="vertical"></nz-divider>
           <a (click)="openDeleteModal(tarefa)">Excluir</a>
           <nz-divider nzType="vertical"></nz-divider>
@@ -30,21 +30,27 @@
     </tbody>
   </nz-table>
 
-  @if (selectedTarefa && showDeleteModal) {
   <app-modal-delete-tarefa
-    [tarefa]="selectedTarefa"
-    [isLoading]="isLoadingSubmit"
-    (onConfirm)="onModalDeleteConfirm($event)"
-    (onCancel)="onModalCancel()"
+    [(isVisible)]="showDeleteModal"
+    [tarefa]="selectedTarefa!"
+    (onComplete)="onModalDeleteConfirm()"
+    (isVisibleChange)="onModalCancel()"
   >
   </app-modal-delete-tarefa>
-  } @if (selectedTarefa && showCompleteModal) {
+
   <app-modal-complete-tarefa
-    [tarefa]="selectedTarefa"
-    [isLoading]="isLoadingSubmit"
-    (onConfirm)="onModalCompleteConfirm($event)"
-    (onCancel)="onModalCancel()"
+    [(isVisible)]="showCompleteModal"
+    [tarefa]="selectedTarefa!"
+    (onComplete)="onModalCompleteConfirm()"
+    (isVisibleChange)="onModalCancel()"
   >
   </app-modal-complete-tarefa>
-  }
+
+  <app-modal-create-and-update-tarefa
+    [(isVisible)]="showUpdateModal"
+    [tarefa]="selectedTarefa!"
+    (onUpdateTarefaEmit)="onModalUpdateConfirm()"
+    (onCancel)="onModalCancel()"
+  >
+  </app-modal-create-and-update-tarefa>
 </div>
