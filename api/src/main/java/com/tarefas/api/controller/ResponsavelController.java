@@ -32,7 +32,7 @@ public class ResponsavelController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ResponsavelResponseDTO> createResponsavel(@Valid ResponsavelCreateDTO body){
+    public ResponseEntity<ResponsavelResponseDTO> createResponsavel(@Valid @RequestBody ResponsavelCreateDTO body){
         Responsavel newResponsavel = responsavelService.createResponsavel(body);
         ResponsavelResponseDTO newResponsavelResponseDTO = ResponsavelResponseDTO.createFromEntity(newResponsavel);
         return ResponseEntity.status(HttpStatus.CREATED).body(newResponsavelResponseDTO);
