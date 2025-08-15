@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (tarefa of basicTable.data; track tarefa) {
+      @for (tarefa of basicTable.data; track tarefa.id) {
       <tr>
         <td>{{ tarefa.id }}</td>
         <td>{{ tarefa.titulo }}</td>
@@ -21,12 +21,30 @@
         <td>
           <a>Editar</a>
           <nz-divider nzType="vertical"></nz-divider>
-          <a>Excluir</a>
+          <a (click)="openDeleteModal(tarefa)">Excluir</a>
           <nz-divider nzType="vertical"></nz-divider>
-          <a>Concluir</a>
+          <a (click)="openCompleteModal(tarefa)">Concluir</a>
         </td>
       </tr>
       }
     </tbody>
   </nz-table>
+
+  @if (selectedTarefa && showDeleteModal) {
+  <app-modal-delete-tarefa
+    [tarefa]="selectedTarefa"
+    [isLoading]="isLoadingSubmit"
+    (onConfirm)="onModalDeleteConfirm($event)"
+    (onCancel)="onModalCancel()"
+  >
+  </app-modal-delete-tarefa>
+  } @if (selectedTarefa && showCompleteModal) {
+  <app-modal-complete-tarefa
+    [tarefa]="selectedTarefa"
+    [isLoading]="isLoadingSubmit"
+    (onConfirm)="onModalCompleteConfirm($event)"
+    (onCancel)="onModalCancel()"
+  >
+  </app-modal-complete-tarefa>
+  }
 </div>
