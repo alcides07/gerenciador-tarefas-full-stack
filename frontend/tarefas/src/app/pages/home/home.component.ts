@@ -8,7 +8,7 @@ import { Responsavel } from '../../interfaces/models/responsavel';
 import { ResponsavelService } from '../../services/responsavel/responsavel.service';
 import { FiltersComponent } from './components/filters/filters.component';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { ModalCreateTarefaComponent } from './components/modal-create-tarefa/modal-create-tarefa.component';
+import { ModalCreateTarefaComponent } from './components/modal-create-tarefa/modal-create-and-update-tarefa.component';
 
 @Component({
   selector: 'app-home',
@@ -20,14 +20,12 @@ export class HomeComponent implements OnInit {
   tarefas: Tarefa[] = [];
   responsaveis: Responsavel[] = [];
   modalCreateTarefaIsVisible = false;
-  modalCompleteTarefaIsVisible = false;
   currentFilters: TarefaFilter = {
     situacao: 'EM_ANDAMENTO',
   };
 
   private tarefaService: TarefaService = inject(TarefaService);
   private responsavelService: ResponsavelService = inject(ResponsavelService);
-
   private message = inject(NzMessageService);
 
   onFiltersChange(filters: TarefaFilter): void {
@@ -66,18 +64,7 @@ export class HomeComponent implements OnInit {
     this.modalCreateTarefaIsVisible = true;
   }
 
-  handleCreateTarefa(): void {
-    this.message.create('success', 'Tarefa criada com sucesso!');
-    this.getTarefas(this.currentFilters);
-  }
-
-  handleDeleteTarefa(): void {
-    this.message.create('success', 'Tarefa excluída com sucesso!');
-    this.getTarefas(this.currentFilters);
-  }
-
-  handleCompleteTarefa(): void {
-    this.message.create('success', 'Tarefa concluída com sucesso!');
+  loadTarefas(): void {
     this.getTarefas(this.currentFilters);
   }
 }

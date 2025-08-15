@@ -8,15 +8,16 @@
 
   <div class="table-container">
     <app-table
-      (onDeleteTarefaEmit)="handleDeleteTarefa()"
-      (onCompleteTarefaEmit)="handleCompleteTarefa()"
+      (onDeleteTarefaEmit)="loadTarefas()"
+      (onCompleteTarefaEmit)="loadTarefas()"
+      (onUpdateTarefaEmit)="loadTarefas()"
       [tarefas]="tarefas"
     >
     </app-table>
   </div>
 </div>
 
-<app-modal-create-tarefa
+<app-modal-create-and-update-tarefa
   [(isVisible)]="modalCreateTarefaIsVisible"
-  (onCreateTarefaEmit)="handleCreateTarefa()"
-></app-modal-create-tarefa>
+  (onCreateTarefaEmit)="loadTarefas()"
+></app-modal-create-and-update-tarefa>
