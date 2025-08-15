@@ -33,11 +33,11 @@ export class TarefaService {
     return this.http.patch<Tarefa>(this.tarefaApiUrl, data);
   }
 
-  completeTarefa(): Observable<Tarefa> {
-    return this.http.patch<Tarefa>(this.tarefaApiUrl, { situacao: 'CONCLUIDA' });
+  completeTarefa(id: number): Observable<Tarefa> {
+    return this.http.patch<Tarefa>(`${this.tarefaApiUrl}${id}/`, { situacao: 'CONCLUIDA' });
   }
 
   deleteTarefa(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.tarefaApiUrl}/${id}`);
+    return this.http.delete<void>(`${this.tarefaApiUrl}${id}/`);
   }
 }
