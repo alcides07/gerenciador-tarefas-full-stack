@@ -1,7 +1,7 @@
 <nz-modal
   [(nzVisible)]="isVisible"
-  nzTitle="Cadastrar Tarefa"
-  nzOkText="Cadastrar"
+  [nzTitle]="tarefa ? 'Editar Tarefa' : 'Cadastrar Tarefa'"
+  [nzOkText]="tarefa ? 'Salvar' : 'Cadastrar'"
   nzMaskClosable="false"
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()"

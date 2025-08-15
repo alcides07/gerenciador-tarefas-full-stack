@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, SimpleChanges } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   NzFormControlComponent,
@@ -9,7 +9,13 @@ import {
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { Prioridade, Situacao } from '../../../../interfaces/models/tarefa';
+import {
+  Prioridade,
+  Situacao,
+  Tarefa,
+  TarefaOptionalRequest,
+  TarefaRequest,
+} from '../../../../interfaces/models/tarefa';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { ResponsavelService } from '../../../../services/responsavel/responsavel.service';
 import { Responsavel } from '../../../../interfaces/models/responsavel';
@@ -18,7 +24,7 @@ import { TarefaService } from '../../../../services/tarefa/tarefa.service';
 import { finalize } from 'rxjs';
 
 @Component({
-  selector: 'app-modal-create-tarefa',
+  selector: 'app-modal-create-and-update-tarefa',
   imports: [
     NzFormControlComponent,
     NzDatePickerModule,
@@ -30,13 +36,16 @@ import { finalize } from 'rxjs';
     NzFormLabelComponent,
     NzFormItemComponent,
   ],
-  templateUrl: './modal-create-tarefa.component.html',
-  styleUrl: './modal-create-tarefa.component.css',
+  templateUrl: './modal-create-and-update-tarefa.component.html',
+  styleUrl: './modal-create-and-update-tarefa.component.css',
 })
 export class ModalCreateTarefaComponent {
   @Input() isVisible: boolean = false;
+  @Input() tarefa: Tarefa | null = null;
+
   @Output() isVisibleChange = new EventEmitter<boolean>();
   @Output() onCreateTarefaEmit = new EventEmitter<void>();
+  @Output() onUpdateTarefaEmit = new EventEmitter<TarefaOptionalRequest>();
 
   isLoadingSubmit = false;
   responsaveis: Responsavel[] = [];
@@ -47,7 +56,6 @@ export class ModalCreateTarefaComponent {
 
   private fb = inject(NonNullableFormBuilder);
   private message = inject(NzMessageService);
-  private cdr = inject(ChangeDetectorRef);
 
   validateForm = this.fb.group({
     titulo: this.fb.control<string>(null!, [Validators.required]),
@@ -56,6 +64,32 @@ export class ModalCreateTarefaComponent {
     data: this.fb.control<string>(null!, [Validators.required]),
     responsavelId: this.fb.control<number>(null!, [Validators.required]),
   });
+
+  private loadTarefa(): void {
+    if (this.tarefa && this.isVisible) {
+      const dataFormatada = this.tarefa.data.split('T')[0];
+      this.validateForm.patchValue({
+        titulo: this.tarefa.titulo,
+        descricao: this.tarefa.descricao,
+        prioridade: this.tarefa.prioridade,
+        data: dataFormatada,
+        responsavelId: this.tarefa.responsavel.id,
+      });
+    } else {
+      this.validateForm.reset();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['tarefa'] || changes['isVisible']) {
+      this.loadTarefa();
+    }
+  }
+
+  ngOnInit(): void {
+    this.getResponsaveis();
+    this.loadTarefa();
+  }
 
   handleOk(): void {
     if (this.validateForm.valid) {
@@ -67,39 +101,61 @@ export class ModalCreateTarefaComponent {
         data: new Date(formData.data).toISOString().split('T')[0],
       };
 
-      this.tarefaService
-        .createTarefa(dataSubmit)
-        .pipe(
-          finalize(() => {
-            this.isLoadingSubmit = false;
-            this.cdr.markForCheck();
-          })
-        )
-        .subscribe({
-          next: () => {
-            this.onCreateTarefaEmit.emit();
-            this.closeModal();
-          },
-          error: () => {
-            this.message.create('error', 'Erro ao criar tarefa!');
-          },
-        });
+      if (this.tarefa) {
+        this.updateTarefa(dataSubmit);
+      } else {
+        this.createTarefa(dataSubmit);
+      }
     } else {
-      Object.values(this.validateForm.controls).forEach((control) => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
+      this.markFormAsDirty();
     }
   }
 
-  handleCancel(): void {
-    this.closeModal();
+  private markFormAsDirty(): void {
+    Object.values(this.validateForm.controls).forEach((control) => {
+      if (control.invalid) {
+        control.markAsDirty();
+        control.updateValueAndValidity({ onlySelf: true });
+      }
+    });
   }
 
-  ngOnInit(): void {
-    this.getResponsaveis();
+  private updateTarefa(data: TarefaOptionalRequest): void {
+    if (!this.tarefa) return;
+
+    this.tarefaService
+      .updateTarefa(this.tarefa.id, data)
+      .pipe(
+        finalize(() => {
+          this.isLoadingSubmit = false;
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.message.success('Tarefa atualizada com sucesso!');
+          this.onUpdateTarefaEmit.emit();
+          this.closeModal();
+        },
+        error: () => this.message.error('Erro ao atualizar tarefa!'),
+      });
+  }
+
+  private createTarefa(data: TarefaRequest): void {
+    this.tarefaService
+      .createTarefa(data)
+      .pipe(
+        finalize(() => {
+          this.isLoadingSubmit = false;
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.message.success('Tarefa criada com sucesso!');
+          this.onCreateTarefaEmit.emit();
+          this.closeModal();
+        },
+        error: () => this.message.error('Erro ao criar tarefa!'),
+      });
   }
 
   getResponsaveis(): void {
@@ -113,8 +169,13 @@ export class ModalCreateTarefaComponent {
     });
   }
 
+  handleCancel(): void {
+    this.closeModal();
+  }
+
   private closeModal(): void {
     this.isVisible = false;
     this.isVisibleChange.emit(this.isVisible);
+    this.validateForm.reset();
   }
 }
