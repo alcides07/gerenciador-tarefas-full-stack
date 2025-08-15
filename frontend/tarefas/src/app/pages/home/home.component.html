@@ -1,2 +1,22 @@
 <app-filters [responsaveis]="responsaveis" (aplicarFiltros)="onFiltersChange($event)"></app-filters>
-<app-table [tarefas]="tarefas"></app-table>
+
+<div class="table-section">
+  <button class="create-button" nz-button nzType="primary" (click)="showModalCreateTarefa()">
+    <span nz-icon nzType="plus"></span>
+    Cadastrar Tarefa
+  </button>
+
+  <div class="table-container">
+    <app-table
+      (onDeleteTarefaEmit)="handleDeleteTarefa()"
+      (onCompleteTarefaEmit)="handleCompleteTarefa()"
+      [tarefas]="tarefas"
+    >
+    </app-table>
+  </div>
+</div>
+
+<app-modal-create-tarefa
+  [(isVisible)]="modalCreateTarefaIsVisible"
+  (onCreateTarefaEmit)="handleCreateTarefa()"
+></app-modal-create-tarefa>

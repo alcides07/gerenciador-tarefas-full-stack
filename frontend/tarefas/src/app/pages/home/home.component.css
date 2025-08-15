@@ -1,0 +1,21 @@
+.table-section {
+  max-width: 800px;
+  margin: 16px auto 0;
+  position: relative;
+}
+
+.create-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 16px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px 4px 0 0;
+}
+
+.table-container {
+  padding: 16px;
+  border: 1px solid #f0f0f0;
+  padding-top: 24px;
+}

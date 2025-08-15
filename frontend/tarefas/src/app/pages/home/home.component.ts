@@ -7,18 +7,24 @@ import { TarefaFilter } from '../../interfaces/filters/tarefa';
 import { Responsavel } from '../../interfaces/models/responsavel';
 import { ResponsavelService } from '../../services/responsavel/responsavel.service';
 import { FiltersComponent } from './components/filters/filters.component';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { ModalCreateTarefaComponent } from './components/modal-create-tarefa/modal-create-tarefa.component';
 
 @Component({
   selector: 'app-home',
-  imports: [TableComponent, FiltersComponent],
+  imports: [TableComponent, FiltersComponent, NzButtonComponent, ModalCreateTarefaComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
   tarefas: Tarefa[] = [];
   responsaveis: Responsavel[] = [];
+  modalCreateTarefaIsVisible = false;
+  modalCompleteTarefaIsVisible = false;
+  currentFilters: TarefaFilter = {
+    situacao: 'EM_ANDAMENTO',
+  };
 
-  currentFilters: TarefaFilter = {};
   private tarefaService: TarefaService = inject(TarefaService);
   private responsavelService: ResponsavelService = inject(ResponsavelService);
 
@@ -54,5 +60,24 @@ export class HomeComponent implements OnInit {
         this.message.create('error', 'Erro ao listar responsáveis!');
       },
     });
+  }
+
+  showModalCreateTarefa(): void {
+    this.modalCreateTarefaIsVisible = true;
+  }
+
+  handleCreateTarefa(): void {
+    this.message.create('success', 'Tarefa criada com sucesso!');
+    this.getTarefas(this.currentFilters);
+  }
+
+  handleDeleteTarefa(): void {
+    this.message.create('success', 'Tarefa excluída com sucesso!');
+    this.getTarefas(this.currentFilters);
+  }
+
+  handleCompleteTarefa(): void {
+    this.message.create('success', 'Tarefa concluída com sucesso!');
+    this.getTarefas(this.currentFilters);
   }
 }

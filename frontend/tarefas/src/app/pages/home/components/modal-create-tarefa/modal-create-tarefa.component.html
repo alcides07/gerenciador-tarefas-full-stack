@@ -1,0 +1,73 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Cadastrar Tarefa"
+  nzOkText="Cadastrar"
+  nzMaskClosable="false"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isLoadingSubmit"
+>
+  <div *nzModalContent>
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="handleOk()">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="titulo">Título</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor, preencha o título">
+          <input placeholder="Insira o título" nz-input formControlName="titulo" id="titulo" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="descricao">Descrição</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor, preencha a descrição">
+          <textarea
+            maxlength="255"
+            placeholder="Insira a descrição"
+            rows="4"
+            formControlName="descricao"
+            id="descricao"
+            nz-input
+          ></textarea>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="prioridade"
+          >Prioridade</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor, selecione a prioridade">
+          <nz-select
+            formControlName="prioridade"
+            nzPlaceHolder="Selecione a prioridade"
+            name="prioridade"
+            nzAllowClear
+          >
+            @for (prioridade of prioridades; track prioridade) {
+            <nz-option [nzLabel]="prioridade" [nzValue]="prioridade"></nz-option>
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="data">Data</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor, selecione a data">
+          <nz-date-picker nzPlaceHolder="Selecione a data" formControlName="data"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="responsavel"
+          >Responsável</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor, selecione o responsável">
+          <nz-select
+            formControlName="responsavelId"
+            nzPlaceHolder="Selecione o responsável"
+            name="responsavelId"
+            nzAllowClear
+          >
+            @for (responsavel of responsaveis; track responsavel.id) {
+            <nz-option [nzLabel]="responsavel.nome" [nzValue]="responsavel.id"></nz-option>
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</nz-modal>
