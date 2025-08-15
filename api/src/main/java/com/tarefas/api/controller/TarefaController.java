@@ -46,7 +46,7 @@ public class TarefaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<TarefaResponseDTO> createTarefa(@Valid TarefaCreateDTO body){
+    public ResponseEntity<TarefaResponseDTO> createTarefa(@Valid @RequestBody TarefaCreateDTO body){
         Tarefa newTarefa = tarefaService.createTarefa(body);
         TarefaResponseDTO newTarefaResponseDTO = TarefaResponseDTO.createFromEntity(newTarefa);
         return ResponseEntity.status(HttpStatus.CREATED).body(newTarefaResponseDTO);
