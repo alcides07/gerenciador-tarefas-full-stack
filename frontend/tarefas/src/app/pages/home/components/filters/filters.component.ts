@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TarefaFilter } from '../../../../interfaces/filters/tarefa';
 import { Prioridade, Situacao } from '../../../../interfaces/models/tarefa';
 import { FormsModule } from '@angular/forms';
