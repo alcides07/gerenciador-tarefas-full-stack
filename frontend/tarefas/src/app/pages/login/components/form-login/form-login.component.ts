@@ -41,6 +41,7 @@ export class FormLoginComponent {
     if (this.validateForm.valid) {
       this.isLoading = true;
       const formData = this.validateForm.getRawValue();
+      this.localStorageService.clear();
 
       this.loginService
         .login(formData)
