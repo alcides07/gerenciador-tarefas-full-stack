@@ -65,6 +65,16 @@ cd gerenciador-tarefas-full-stack/frontend/tarefas/
 ng serve
 ```
 
+#### Acesse a aplicação frontend:
+
+```
+http://localhost:4200/
+```
+
+> Você vai se deparar com:
+
+<img src="assets/frontend.png" />
+
 #### Abra um novo terminal e acesse o diretório do backend:
 
 ```
