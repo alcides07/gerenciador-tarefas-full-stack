@@ -4,7 +4,8 @@
     <div>
       <a href="#orientacoes">Orientações Gerais</a> • 
       <a href="#instrucoes">Instruções de Execução</a> •
-      <a href="#funcionalidades">Funcionalidades Disponíveis</a>
+      <a href="#funcionalidades">Funcionalidades Disponíveis</a> •
+      <a href="#deploy">Deploy</a>
     </div>
   </section>
 
@@ -32,7 +33,7 @@
 
 ✅ g) Documentar a API usando o Swagger (https://swagger.io).
 
-❌ h) Publicar projeto no heroku ou outro ambiente cloud.
+✅ h) Publicar projeto no heroku ou outro ambiente cloud.
 
 <hr>
 
@@ -124,3 +125,18 @@ http://localhost:8000/docs
 - Concluir Tarefas;
 - Excluir Tarefas;
 - Listar e filtrar tarefas.
+
+<hr>
+
+## <div id="deploy">🚀 Deploy</div>
+
+> O sistema de gerenciamento de tarefas foi publicado em nuvem utilizando as seguintes plataformas em planos GRATUITOS, sujeitas a limitações de desempenho e disponibilidade:
+
+- Frontend (Angular): [Vercel](https://vercel.com/)
+  - **[Acesse o frontend](https://gerenciador-tarefas-full-stack.vercel.app)**
+- API (Spring Boot): [Render](https://render.com/docs/render-dashboard)
+
+  - No plano gratuito, a instância é automaticamente desligada após 15 minutos de inatividade. O tempo médio de reativação é de aproximadamente 50 segundos.
+  - **[Acesse a Documentação da API](https://gerenciador-tarefas-full-stack.vercel.app)**
+
+- Banco de Dados (PostgreSQL): [Supabase](http://supabase.com/)
