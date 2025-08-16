@@ -60,7 +60,13 @@ git clone https://github.com/alcides07/gerenciador-tarefas-full-stack.git
 cd gerenciador-tarefas-full-stack/frontend/tarefas/
 ```
 
-#### Execute a aplicação frontend:
+#### Instale as dependências:
+
+```
+npm install
+```
+
+#### Execute a aplicação:
 
 ```
 ng serve
