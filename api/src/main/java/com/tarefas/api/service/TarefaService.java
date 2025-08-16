@@ -6,7 +6,6 @@ import com.tarefas.api.enums.TarefaSituacaoEnum;
 import com.tarefas.api.specification.Tarefa.TarefaFieldsFilter;
 import com.tarefas.api.model.Responsavel;
 import com.tarefas.api.model.Tarefa;
-import com.tarefas.api.repository.ResponsavelRepository;
 import com.tarefas.api.repository.TarefaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class TarefaService {
     TarefaRepository tarefaRepository;
 
     @Autowired
-    ResponsavelRepository responsavelRepository;
+    ResponsavelService responsavelService;
 
     public List<Tarefa> getTarefas(TarefaFieldsFilter filters){
         return tarefaRepository.findAll(filters.toSpecification());
@@ -36,9 +35,7 @@ public class TarefaService {
 
     @Transactional
     public Tarefa createTarefa(TarefaCreateDTO data){
-        Responsavel responsavel = responsavelRepository
-                .findById(data.responsavelId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Responsável não encontrado!"));
+        Responsavel responsavel = responsavelService.getResponsavelById(data.responsavelId());
 
         Tarefa newTarefa = Tarefa.createFromDTO(data);
         newTarefa.setSituacao(TarefaSituacaoEnum.EM_ANDAMENTO);
@@ -59,7 +56,7 @@ public class TarefaService {
         Tarefa tarefa = tarefaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         if (data.responsavelId() != null && !data.responsavelId().equals(tarefa.getResponsavel().getId())){
-            Responsavel newResponsavelIntoTarefa = responsavelRepository.findById(data.responsavelId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            Responsavel newResponsavelIntoTarefa = responsavelService.getResponsavelById(data.responsavelId());
             tarefa.setResponsavel(newResponsavelIntoTarefa);
         }
 
