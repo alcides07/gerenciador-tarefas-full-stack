@@ -3,11 +3,10 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { Tarefa } from '../../../../interfaces/models/tarefa';
 import formatDataISOToddMMyyyy from '../../../../utils/formatDataISO';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { TarefaService } from '../../../../services/tarefa/tarefa.service';
 import { ModalDeleteTarefaComponent } from '../modal-delete-tarefa/modal-delete-tarefa.component';
 import { ModalCompleteTarefaComponent } from '../modal-complete-tarefa/modal-complete-tarefa.component';
 import { ModalCreateTarefaComponent } from '../modal-create-tarefa/modal-create-and-update-tarefa.component';
+import { Responsavel } from '../../../../interfaces/models/responsavel';
 
 @Component({
   selector: 'app-table',
@@ -23,6 +22,7 @@ import { ModalCreateTarefaComponent } from '../modal-create-tarefa/modal-create-
 })
 export class TableComponent {
   @Input() tarefas: Tarefa[] = [];
+  @Input() responsaveis: Responsavel[] = [];
 
   @Output() onDeleteTarefaEmit = new EventEmitter<void>();
   @Output() onUpdateTarefaEmit = new EventEmitter<void>();

@@ -14,6 +14,7 @@
 
   <div class="table-container">
     <app-table
+      [responsaveis]="responsaveis"
       (onDeleteTarefaEmit)="loadTarefas()"
       (onCompleteTarefaEmit)="loadTarefas()"
       (onUpdateTarefaEmit)="loadTarefas()"
@@ -24,6 +25,7 @@
 </div>
 
 <app-modal-create-and-update-tarefa
+  [responsaveis]="responsaveis"
   [(isVisible)]="modalCreateTarefaIsVisible"
   (onCreateTarefaEmit)="loadTarefas()"
 ></app-modal-create-and-update-tarefa>

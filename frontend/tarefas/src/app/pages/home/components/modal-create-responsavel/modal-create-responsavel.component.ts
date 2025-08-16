@@ -87,5 +87,6 @@ export class ModalCreateResponsavelComponent {
   private closeModal(): void {
     this.isVisible = false;
     this.isVisibleChange.emit(this.isVisible);
+    this.validateForm.reset();
   }
 }

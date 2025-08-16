@@ -47,6 +47,7 @@
   </app-modal-complete-tarefa>
 
   <app-modal-create-and-update-tarefa
+    [responsaveis]="responsaveis"
     [(isVisible)]="showUpdateModal"
     [tarefa]="selectedTarefa!"
     (onUpdateTarefaEmit)="onModalUpdateConfirm()"

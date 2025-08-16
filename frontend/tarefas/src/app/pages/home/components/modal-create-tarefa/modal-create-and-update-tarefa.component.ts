@@ -42,13 +42,13 @@ import { finalize } from 'rxjs';
 export class ModalCreateTarefaComponent {
   @Input() isVisible: boolean = false;
   @Input() tarefa: Tarefa | null = null;
+  @Input() responsaveis: Responsavel[] = [];
 
   @Output() isVisibleChange = new EventEmitter<boolean>();
   @Output() onCreateTarefaEmit = new EventEmitter<void>();
   @Output() onUpdateTarefaEmit = new EventEmitter<TarefaOptionalRequest>();
 
   isLoadingSubmit = false;
-  responsaveis: Responsavel[] = [];
   prioridades: Prioridade[] = ['BAIXA', 'MEDIA', 'ALTA'];
   situacoes: Situacao[] = ['EM_ANDAMENTO', 'CONCLUIDA'];
   responsavelService: ResponsavelService = inject(ResponsavelService);
@@ -87,7 +87,6 @@ export class ModalCreateTarefaComponent {
   }
 
   ngOnInit(): void {
-    this.getResponsaveis();
     this.loadTarefa();
   }
 
@@ -156,17 +155,6 @@ export class ModalCreateTarefaComponent {
         },
         error: () => this.message.error('Erro ao criar tarefa!'),
       });
-  }
-
-  getResponsaveis(): void {
-    this.responsavelService.getResponsaveis().subscribe({
-      next: (responsaveis) => {
-        this.responsaveis = responsaveis;
-      },
-      error: () => {
-        this.message.create('error', 'Erro ao listar responsáveis!');
-      },
-    });
   }
 
   handleCancel(): void {
