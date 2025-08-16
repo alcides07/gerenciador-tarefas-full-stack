@@ -137,6 +137,6 @@ http://localhost:8000/docs
 - API (Spring Boot): [Render](https://render.com/docs/render-dashboard)
 
   - No plano gratuito, a instância é automaticamente desligada após 15 minutos de inatividade. O tempo médio de reativação é de aproximadamente 50 segundos.
-  - **[Acesse a Documentação da API](https://gerenciador-tarefas-full-stack.vercel.app)**
+  - **[Acesse a Documentação da API](https://gerenciador-tarefas-full-stack.onrender.com/docs)**
 
 - Banco de Dados (PostgreSQL): [Supabase](http://supabase.com/)
