@@ -44,6 +44,7 @@
 - [Angular 20](https://angular.dev/installation)
 - [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
 - [Maven](https://maven.apache.org/install.html)
+- [PosgreSQL 16](https://www.postgresql.org/download/)
 
 > Vamos ao passo a passo, primeiramente com o frontend:
 
@@ -74,6 +75,12 @@ http://localhost:4200/
 > Você vai se deparar com:
 
 <img src="assets/frontend.png" />
+
+<br>
+
+> Agora vamos preparar o backend.
+
+> Se certifique que você tenha um banco de dados PostgreSQL criado que se chame `tarefas`
 
 #### Abra um novo terminal e acesse o diretório do backend:
 
