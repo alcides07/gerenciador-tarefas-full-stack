@@ -5,7 +5,9 @@ import com.tarefas.api.model.Responsavel;
 import com.tarefas.api.repository.ResponsavelRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -17,6 +19,12 @@ public class ResponsavelService {
 
     public List<Responsavel> getResponsaveis(){
         return responsavelRepository.findAll();
+    }
+
+    public Responsavel getResponsavelById(Integer id){
+        return responsavelRepository
+                .findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Responsável não encontrado!"));
     }
 
     @Transactional
