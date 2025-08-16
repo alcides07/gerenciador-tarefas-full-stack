@@ -39,7 +39,7 @@ public class TarefaFieldsFilter {
             .and(tarefaIdExact(tarefaId))
             .and(prioridadeExact(prioridade))
             .and(situacaoExact(situacao))
-            .and(tituloDescricaoContains(search)
+            .and(tituloOrDescricaoContains(search)
         );
     }
 }

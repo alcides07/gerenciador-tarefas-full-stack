@@ -52,7 +52,7 @@ public class TarefaSpecification {
         };
     }
 
-    public static Specification<Tarefa> tituloDescricaoContains(String search){
+    public static Specification<Tarefa> tituloOrDescricaoContains(String search){
         return (root, query, builder) -> {
             if (ObjectUtils.isEmpty(search)){
                 return null;
