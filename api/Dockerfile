@@ -1,6 +1,12 @@
+FROM maven:3.9-eclipse-temurin-21-alpine AS builder
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src ./src
+RUN mvn package -DskipTests
+
 FROM eclipse-temurin:21-jdk-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+COPY --from=builder /app/target/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
