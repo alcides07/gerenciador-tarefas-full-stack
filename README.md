@@ -2,10 +2,11 @@
       <img style="border-radius: 50%;" src="assets/logo.png" width='120px'; alt="Logo do Sistema de Tarefas"/>
     <h4>Gerenciador de tarefas 🔥 </h4>
     <div>
-      <a href="#orientacoes">Orientações Gerais</a> • 
+      <a href="#orientacoes">Orientações</a> • 
       <a href="#instrucoes">Instruções de Execução</a> •
-      <a href="#funcionalidades">Funcionalidades Disponíveis</a> •
-      <a href="#deploy">Deploy</a>
+      <a href="#funcionalidades">Funcionalidades</a> •
+      <a href="#deploy">Deploy</a> •
+      <a href="#testes">Testes</a>
     </div>
   </section>
 
@@ -29,7 +30,7 @@
 
 > Opcionais:
 
-❌ f) Utilizar testes de unidades.
+✅ f) Utilizar testes de unidades.
 
 ✅ g) Documentar a API usando o Swagger (https://swagger.io).
 
@@ -140,3 +141,23 @@ http://localhost:8000/docs
   - **[Acesse a Documentação da API](https://gerenciador-tarefas-full-stack.onrender.com/docs)**
 
 - Banco de Dados (PostgreSQL): [Supabase](http://supabase.com/)
+
+<hr>
+
+## <div id="testes">🧪 Testes</div>
+
+> Testes unitários foram implementados no backend utilizando **JUnit5** e **Mockito**.
+
+> Para testar, basta realizar os passos:
+
+#### Acesse o diretório do backend:
+
+```
+cd gerenciador-tarefas-full-stack/api/
+```
+
+#### Execute os testes:
+
+```
+mvn test
+```
