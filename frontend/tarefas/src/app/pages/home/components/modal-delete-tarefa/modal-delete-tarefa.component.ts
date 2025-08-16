@@ -9,7 +9,6 @@ import { finalize } from 'rxjs';
   imports: [NzModalModule],
   selector: 'app-modal-delete-tarefa',
   templateUrl: './modal-delete-tarefa.component.html',
-  styleUrl: './modal-delete-tarefa.component.css',
 })
 export class ModalDeleteTarefaComponent {
   @Input() tarefa!: Tarefa;

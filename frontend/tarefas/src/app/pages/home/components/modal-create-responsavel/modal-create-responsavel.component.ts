@@ -25,7 +25,6 @@ import { finalize } from 'rxjs';
     NzFormItemComponent,
   ],
   templateUrl: './modal-create-responsavel.component.html',
-  styleUrl: './modal-create-responsavel.component.css',
 })
 export class ModalCreateResponsavelComponent {
   @Input() isVisible: boolean = false;
