@@ -9,6 +9,7 @@ import { finalize } from 'rxjs/operators';
 import { ChangeDetectorRef } from '@angular/core';
 import { RegistroService } from '../../../../services/registro/registro.service';
 import { Router, RouterLink } from '@angular/router';
+import { LocalStorageService } from '../../../../services/local-storage.service';
 
 @Component({
   selector: 'app-form-registro',
@@ -31,6 +32,8 @@ export class FormRegistroComponent {
   private registroService = inject(RegistroService);
   private message = inject(NzMessageService);
   private cdr = inject(ChangeDetectorRef);
+  private localStorageService = inject(LocalStorageService);
+
 
   validateForm = this.fb.group({
     username: this.fb.control('', [Validators.required]),
@@ -41,6 +44,7 @@ export class FormRegistroComponent {
     if (this.validateForm.valid) {
       this.isLoading = true;
       const formData = this.validateForm.getRawValue();
+      this.localStorageService.clear();
 
       this.registroService
         .register(formData)
